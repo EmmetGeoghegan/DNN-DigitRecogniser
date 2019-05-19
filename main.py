@@ -4,10 +4,13 @@
 # And the screen displays what the network thinks you drew
 
 import paint
-import imageprocessor
+import imageprocessor as ip
+import matplotlib.pyplot as plt
 
 # paint.py generates the 280x280 image
 # impageprocessor.py takes that image and turns it into a 28x28 image then generates an array to represent that image
 
 
-print(imageprocessor.image_matrix)
+# Plot our image so we can see all is good
+trainingimage = plt.imshow(ip.image_matrix, cmap="Greys")
+plt.show()

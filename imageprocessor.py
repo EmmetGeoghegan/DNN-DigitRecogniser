@@ -21,7 +21,7 @@ def getpixelvals(input_image):                                      # Takes the 
         pixelvalues.append(1-int(rawpixelvalues[i][0])/255)
     pixelvalues = np.array(pixelvalues)                             # Turns the list into an array for re-shaping
     pixelarray = pixelvalues.reshape(28, 28)                        # Re-shapes list into a 28x28 array for the nn
-    return(pixelarray)
+    return(pixelarray)                                              # Returns the array
 
 
 input = Image.open("usersublarge.png")
@@ -31,5 +31,5 @@ processedinput = Image.open("28x28.png")
 image_matrix = getpixelvals(processedinput)
 
 # Plot our image so we can see all is good
-trainingimage = plt.imshow(image_matrix, cmap="Greys")
-plt.show()
+#trainingimage = plt.imshow(image_matrix, cmap="Greys")
+# plt.show()
