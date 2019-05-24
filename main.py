@@ -12,5 +12,6 @@ import matplotlib.pyplot as plt
 
 
 # Plot our image so we can see all is good
-trainingimage = plt.imshow(ip.image_matrix, cmap="Greys")
-plt.show()
+def imagechecker():
+    plt.imshow(ip.image_matrix, cmap="Greys")
+    plt.show()

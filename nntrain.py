@@ -7,6 +7,7 @@ data set it can determine on the test set what number is written
 import tensorflow as tf
 import pandas as pd
 import numpy as np
+import keras
 import matplotlib.pyplot as plt
 from keras.utils.np_utils import to_categorical
 from sklearn.model_selection import train_test_split
@@ -69,11 +70,19 @@ model.compile(optimizer="adam",
               loss="categorical_crossentropy",
               metrics=["accuracy"])
 
+# We now want to augment our dataset with random Rotations, shifting and zooming
+datagen = tf.keras.preprocessing.image.ImageDataGenerator(rotation_range=10, width_shift_range=0.1, height_shift_range=0.1, zoom_range=0.1)
+datagen.fit(x_train)
+
 # Train the network
-batch_size = 100
-epochs = 3
+batch_size = 90
+epochs = 5
+# We now have a trained network
+model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, validation_data=(x_val, y_val))
 
-print(x_train)
-print(y_train.size)
-
-model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs)
+# We now export the model to a JSON so we dont have to re-train every time
+model_json = model.to_json()
+with open("mymodel.json", "w") as json_file:
+    json_file.write(model_json)
+model.save_weights("mymodel.h5")
+print("Saved model to disk")
