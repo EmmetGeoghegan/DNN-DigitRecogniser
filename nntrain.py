@@ -74,16 +74,16 @@ def main():
                   metrics=["accuracy"])
 
     # Train the network
-    batch_size = 90
-    epochs = 5
+    batch_size = 86
+    epochs = 15
     # We now have a trained network
     model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, validation_data=(x_val, y_val))
 
-    # We now export the model to a JSON so we dont have to re-train every time
+    # We now export the model to a JSON and weights to h5 so we dont have to re-train every time
     model_json = model.to_json()
-    with open("mymodel.json", "w") as json_file:
+    with open("model.json", "w") as json_file:
         json_file.write(model_json)
-    model.save_weights("mymodel.h5")
+    model.save_weights("model.h5")
     print("Saved model to disk")
 
 

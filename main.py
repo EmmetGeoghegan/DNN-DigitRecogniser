@@ -5,27 +5,38 @@
 
 import paint
 import imageprocessor as ip
+import numpy as np
 import nntrain as nn
 import matplotlib.pyplot as plt
-
-# paint.py generates the 280x280 image
-# impageprocessor.py takes that image and turns it into a 28x28 image then generates an array to represent that image
+import tensorflow as tf
 
 
-# Plot our image so we can see all is good
-def imagechecker(drawing):
-    plt.imshow(drawing, cmap="Greys")
+def testingloop(nnmodel, testimage):
+    yournumber = mymodel.predict(image_matrix)
+    results = np.argmax(yournumber, axis=1)
+    print("Your number was {}".format(results))
+
+
+def showdrawing(image):
+    plt.imshow(image[0][:, :, 0], cmap="Greys")
     plt.show()
-# imagechecker()
-
-
-# Get the users drawing
-paint.main()
-ip.main()
-# imagechecker(ip.main())        # View users submitted number
 
 # If you need to train a new nural net un-comment this
 # nn.main()
-# Our data we want to check is ip.image_matrix its the 28x28 image the user drew
-# We want to pass this to the trained nn
-# And see what we get
+
+
+# load our NN from the json and h5 files
+modeljson = open("model.json", "r")
+loadedmodel = modeljson.read()
+modeljson.close()
+mymodel = tf.keras.models.model_from_json(loadedmodel)
+mymodel.load_weights("model.h5")
+print("Loaded model from disk")
+
+# Send our new drawing and see what it predicts
+# Loop to test multiple images
+while True:
+    paint.main()
+    image_matrix = ip.main()
+    # showdrawing(image_matrix)           # show what were submitting to the nn
+    testingloop(mymodel, image_matrix)

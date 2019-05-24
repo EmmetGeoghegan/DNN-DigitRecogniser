@@ -19,7 +19,7 @@ def getpixelvals(inputdata):                                      # Takes the re
     for i in range(0, 784, 1):                                      # Normalises the pixelvalues
         pixelvalues.append(1-int(rawpixelvalues[i][0])/255)
     pixelvalues = np.array(pixelvalues)                             # Turns the list into an array for re-shaping
-    pixelarray = pixelvalues.reshape(28, 28)                        # Re-shapes list into a 28x28 array for the nn
+    pixelarray = pixelvalues.reshape(-1, 28, 28, 1)                 # Re-shapes list into a 28x28 array for the nn
     return(pixelarray)                                              # Returns the array
 
 
