@@ -6,7 +6,6 @@
 import paint
 import imageprocessor as ip
 import numpy as np
-import nntrain as nn
 import matplotlib.pyplot as plt
 import tensorflow as tf
 
@@ -22,6 +21,7 @@ def showdrawing(image):
     plt.show()
 
 # If you need to train a new nural net un-comment this
+# import nntrain as nn
 # nn.main()
 
 
