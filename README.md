@@ -6,6 +6,8 @@
 * PIL
 * resizeimage
 * numpy
+* tensorflow-gpu
+* keras
 
 Python program that uses the Kaggle MNIST dataset to train a NN to <br/>
 recognise the numbers from 0-9
