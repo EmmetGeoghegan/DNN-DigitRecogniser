@@ -6,12 +6,8 @@ data set it can determine on the test set what number is written
 # Imports
 import tensorflow as tf
 import pandas as pd
-import numpy as np
-import keras
-import matplotlib.pyplot as plt
 from keras.utils.np_utils import to_categorical
 from sklearn.model_selection import train_test_split
-import os
 
 
 def main():
