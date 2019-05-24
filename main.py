@@ -5,6 +5,7 @@
 
 import paint
 import imageprocessor as ip
+import nntrain as nn
 import matplotlib.pyplot as plt
 
 # paint.py generates the 280x280 image
@@ -12,6 +13,19 @@ import matplotlib.pyplot as plt
 
 
 # Plot our image so we can see all is good
-def imagechecker():
-    plt.imshow(ip.image_matrix, cmap="Greys")
+def imagechecker(drawing):
+    plt.imshow(drawing, cmap="Greys")
     plt.show()
+# imagechecker()
+
+
+# Get the users drawing
+paint.main()
+ip.main()
+# imagechecker(ip.main())        # View users submitted number
+
+# If you need to train a new nural net un-comment this
+# nn.main()
+# Our data we want to check is ip.image_matrix its the 28x28 image the user drew
+# We want to pass this to the trained nn
+# And see what we get

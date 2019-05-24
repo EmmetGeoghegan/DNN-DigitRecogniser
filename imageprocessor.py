@@ -5,12 +5,12 @@ from resizeimage import resizeimage
 import numpy as np
 
 
-def resizer(input):                                          # Func to resize images
-    output = resizeimage.resize_contain(input, [28, 28])
+def resizer(inputimage):                                          # Func to resize images
+    output = resizeimage.resize_contain(inputimage, [28, 28])
     output.save("28x28.png")
-    print("==========================")
-    print("Image Sucessfully Re-Sized")
-    print("==========================")
+    # print("==========================")
+    # print("Image Sucessfully Re-Sized")
+    # print("==========================")
 
 
 def getpixelvals(inputdata):                                      # Takes the resized images and gets pixel values
@@ -28,6 +28,7 @@ def main():
     resizer(input)
     processedinput = Image.open("28x28.png")
     image_matrix = getpixelvals(processedinput)
+    return image_matrix
 
 
 if __name__ == "__main__":
