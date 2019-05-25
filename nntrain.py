@@ -8,6 +8,7 @@ import tensorflow as tf
 import pandas as pd
 from keras.utils.np_utils import to_categorical
 from sklearn.model_selection import train_test_split
+from keras.preprocessing.image import ImageDataGenerator
 
 
 def main():
@@ -44,7 +45,7 @@ def main():
     y_train = to_categorical(y_train, num_classes=10)
 
     # Set a random seed so we can see if we are making a difference as we change things
-    seed = 2
+    seed = 99
 
     # Split our training set into a training and validation set 90-10 ratio respectivly
     x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=0.1, random_state=seed)
@@ -70,10 +71,17 @@ def main():
                   metrics=["accuracy"])
 
     # Train the network
-    batch_size = 86
-    epochs = 15
-    # We now have a trained network
+    batch_size = 50
+    epochs = 30
     model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, validation_data=(x_val, y_val))
+
+    # Now we enlarge our dataset by rotating, zooming and shifting the data
+    gen = ImageDataGenerator(rotation_range=8, width_shift_range=0.08, height_shift_range=0.08, zoom_range=0.08)
+    # Generate new training and validation to train the network
+    gen_train = gen.flow(x_train, y_train, batch_size=batch_size)
+    gen_val = gen.flow(x_val, y_val, batch_size=batch_size)
+    # Train our nn on the generated dataset
+    model.fit_generator(generator=gen_train, steps_per_epoch=gen_train.n, epochs=epochs, validation_data=gen_val, validation_steps=gen_val.n)
 
     # We now export the model to a JSON and weights to h5 so we dont have to re-train every time
     model_json = model.to_json()
